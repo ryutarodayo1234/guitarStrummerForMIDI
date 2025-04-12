@@ -1,5 +1,3 @@
-/* style.css */
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f7f1e1;
@@ -23,29 +21,28 @@ h2 {
   color: #7f4e3d;
 }
 
-#dropArea {
+.drop-area {
   border: 2px dashed #b5813c;
   padding: 20px;
   text-align: center;
   margin-bottom: 20px;
   background-color: #fff5e1;
+  cursor: pointer;
 }
 
-#dropArea p {
-  margin: 0;
-  color: #7f4e3d;
+.file-select {
+  color: #a65e2e;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-input[type="file"] {
-  display: none; /* 隠す */
-}
-
-.radio-group {
+.radio-group, .delay-group {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.radio-group label {
+.radio-group label,
+.delay-group label {
   margin-right: 15px;
   font-size: 1.1em;
 }

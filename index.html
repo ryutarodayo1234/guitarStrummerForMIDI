@@ -2,36 +2,41 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Guitar Strummer for MIDI</title>
+  <title>Guitar MIDI Strummer</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@tonejs/midi@2.0.27/build/Midi.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h2>Guitar Strummer for MIDI</h2>
+    <h2>Guitar MIDI Strummer</h2>
 
-    <!-- ドラッグ＆ドロップエリア -->
+    <!-- D&Dエリアとクリック用input -->
     <div id="dropArea" class="drop-area">
-      <p>Drag & Drop your MIDI file here</p>
+      <p>ドラッグ & ドロップ または <span id="clickToSelect" class="file-select">ファイルを選択</span></p>
+      <input type="file" id="midiInput" accept=".mid,.midi" hidden>
     </div>
 
-    <!-- ファイル名とステータス表示エリア -->
+    <!-- ステータス表示 -->
     <div id="fileStatus" class="file-status"></div>
 
+    <!-- ストラム方法 -->
     <div class="radio-group">
-      <label>
-        <input type="radio" name="startDirection" value="top" checked>
-        Start from Top
-      </label>
-      <label>
-        <input type="radio" name="startDirection" value="bottom">
-        Start from Bottom
-      </label>
+      <label><input type="radio" name="strumMode" value="alternateTop"> 上からスタート</label>
+      <label><input type="radio" name="strumMode" value="alternateBottom"> 下からスタート</label>
+      <label><input type="radio" name="strumMode" value="alwaysTop"> 常に上から</label>
+      <label><input type="radio" name="strumMode" value="alwaysBottom"> 常に下から</label>
+    </div>
+    
+
+    <!-- ディレイ設定 -->
+    <div class="delay-group">
+      <label>ディレイタイム (ms): <input type="number" id="delayInput" value="10" min="0" step="1"></label>
     </div>
 
+    <!-- 実行ボタン -->
     <button id="strumButton">Strum & Download</button>
   </div>
-  
+
   <script src="script.js"></script>
 </body>
 </html>
