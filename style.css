@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 960px;
   margin: 0 auto;
   background-color: #fff8f0;
   border: 2px solid #d1a17a;
