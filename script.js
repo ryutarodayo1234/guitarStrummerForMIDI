@@ -57,15 +57,20 @@ document.getElementById("strumButton").addEventListener("click", () => {
   }
 
   const mode = document.querySelector('input[name="strumMode"]:checked').value;
-  const delayMs = parseFloat(delayInput.value) || 10;
-  const delayStep = delayMs / 1000; // ミリ秒 → 秒に変換
+  const bpm = parseFloat(document.getElementById("bpmInput").value);
+  const delayMs = parseFloat(document.getElementById("delayInput").value);
 
-  applyStrum(midiData, mode, delayStep);
-  downloadStrummedMIDI(midiData);
+  if (bpm > 0) {
+    const delayStep = (60000 / bpm) * (delayMs / 1000); // BPMとディレイタイムを基に計算
+    applyStrum(midiData, mode, delayStep);
+    downloadStrummedMIDI(midiData);
+  } else {
+    alert("BPMを正しく入力してください。");
+  }
 });
 
 // Strumの適用
-function applyStrum(midi, mode, delayStep) {
+function applyStrum(midi, mode, delayMs) {
   let isTop = (mode === "alternateTop"); // 初回の方向を設定
 
   midi.tracks.forEach(track => {
@@ -96,6 +101,7 @@ function applyStrum(midi, mode, delayStep) {
       });
 
       // 遅延を加える
+      const delayStep = delayMs / 1000; // ミリ秒 → 秒に変換
       noteGroup.forEach((note, i) => {
         note.time += i * delayStep;
       });
@@ -115,3 +121,19 @@ function downloadStrummedMIDI(midi) {
   a.click();
   URL.revokeObjectURL(url);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const bpmInput = document.getElementById('bpmInput');
+  const delayInput = document.getElementById('delayInput');
+
+  // BPMからディレイタイムを計算
+  bpmInput.addEventListener('input', () => {
+    const bpm = parseFloat(bpmInput.value);
+    if (bpm > 0) {
+      const delayTime = (60000 / bpm) / 4; // 1拍を4分音符として計算
+      delayInput.value = Math.round(delayTime);
+    } else {
+      delayInput.value = 0;
+    }
+  });
+});
